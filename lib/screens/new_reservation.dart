@@ -61,7 +61,15 @@ class _NewReservationScreenState extends State<NewReservationScreen> {
                         hint: Text('Escolha um livro'),
                       );
                     }),
-                    SizedBox(height: 20.0),
+                  _currentBook != null
+                  ? Image.network(
+                      _currentBook.cover,
+                    )
+                  : Icon(
+                      Icons.book,
+                      size: 80.0,
+                    ),
+                  SizedBox(height: 20.0),
                     _currentBook != null
                     ? Text("Título: " +
                     _currentBook.title +
