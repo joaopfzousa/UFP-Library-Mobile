@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:ufp_library_mobile/models/books_list.dart';
+import 'package:ufp_library_mobile/models/reservations.dart';
 import 'package:ufp_library_mobile/models/reservations_list.dart';
 import 'package:ufp_library_mobile/models/user.dart';
 
@@ -17,6 +18,18 @@ Future<User> loginUser({Map body}) async {
     }
 
     return User.fromJson(json.decode(response.body));
+  });
+}
+
+Future<Reservations> placeReservation({Map body}) async {
+  return http.post(url + 'reservations', body: body).then((http.Response response) {
+    final int statusCode = response.statusCode;
+
+    if (statusCode < 200 || statusCode >= 400 || json == null) {
+      throw new Exception("Error while fetching data");
+    }
+
+    return Reservations.fromJson(json.decode(response.body));
   });
 }
 

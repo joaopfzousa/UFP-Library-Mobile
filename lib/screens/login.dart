@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ufp_library_mobile/screens/home.dart';
 import 'package:ufp_library_mobile/services/api.dart';
+import 'package:ufp_library_mobile/services/jwt.dart';
 import '../models/user.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       User userToLogin = new User(number: _user.number, password: _user.password);
                                       try {
                                         User loggedInUser = await loginUser(body: userToLogin.toMap());
-                                        User authenticatedUser = new User.authenticatedUser(number: _user.number, 
+                                        User authenticatedUser = new User.authenticatedUser(id: parseJwt(loggedInUser.token).values.toList()[1], number: _user.number, 
                                           token: loggedInUser.token);
                                         Navigator.pushReplacement(
                                           context,
